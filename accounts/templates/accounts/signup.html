@@ -1,0 +1,84 @@
+{% extends "accounts/base.html" %}
+{% block title %}Student Signup | SRMCEM Events{% endblock %}
+{% block body_class %}auth-page-body{% endblock %}
+{% block content %}
+<main class="auth-page">
+  <section class="auth-shell glass">
+    <aside class="auth-side">
+      <span class="kicker"><span class="kicker-dot"></span> Student access</span>
+      <h1><span class="gradient-text">Join the campus.</span></h1>
+      <p>Create your student account once, then use the event dashboard to register, review confirmations and unregister whenever your plans change.</p>
+      <div class="auth-art">
+        <div class="auth-word">DISCOVER • REGISTER • CELEBRATE</div>
+      </div>
+    </aside>
+
+    <section class="auth-form-panel">
+      <a class="brand" href="/"><span class="brand-mark">✦</span><span>SRMCEM <span class="brand-sub">PORTAL</span></span></a>
+      <h2>Create account</h2>
+      <p class="sub">New accounts are created as Student accounts.</p>
+
+      <form id="signupForm" autocomplete="off">
+        <div class="field">
+          <label for="username"><span>Username</span><span>Student</span></label>
+          <div class="input-wrap">
+            <input type="text" id="username" autocomplete="off" placeholder="Choose a username" readonly data-auto-focus required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email"><span>Email address</span><span>For confirmations</span></label>
+          <div class="input-wrap">
+            <input type="email" id="email" autocomplete="off" placeholder="you@example.com" readonly data-auto-focus required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="password"><span>Password</span><span>Keep it secure</span></label>
+          <div class="input-wrap">
+            <input type="password" id="password" autocomplete="new-password" placeholder="Create a password" readonly data-auto-focus required>
+            <button class="toggle-password" type="button" data-password-toggle="password">Show</button>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" style="width:100%;">Create Student Account</button>
+        <div class="form-help">Admin accounts are managed separately; this signup flow always creates a student account.</div>
+      </form>
+
+      <div class="auth-footer">
+        <span>Already have an account?</span>
+        <a href="/accounts/login/">Sign in →</a>
+      </div>
+    </section>
+  </section>
+</main>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+document.getElementById("signupForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+  const data = {
+    username: document.getElementById("username").value,
+    email: document.getElementById("email").value,
+    password: document.getElementById("password").value,
+  };
+  try {
+    const response = await fetch("/accounts/register/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    if (result.status) {
+      alert("✅ " + result.message);
+      window.location.replace("/accounts/login/");
+    } else {
+      alert("❌ " + result.error);
+    }
+  } catch (err) {
+    alert("⚠️ Something went wrong: " + err);
+  }
+});
+</script>
+{% include "accounts/_history_guard.html" with mode="auth" %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#160c2d">
+  <title>{% block title %}SRMCEM Events{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'accounts/festival.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <div class="ambient" aria-hidden="true">
+    <span class="orb one"></span>
+    <span class="orb two"></span>
+    <span class="orb three"></span>
+  </div>
+
+  {% block nav %}{% endblock %}
+  {% block content %}{% endblock %}
+
+  <script src="{% static 'accounts/festival.js' %}"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

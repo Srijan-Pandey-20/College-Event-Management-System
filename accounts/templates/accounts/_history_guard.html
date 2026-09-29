@@ -1,0 +1,46 @@
+<script>
+(function () {
+  var MODE = "{{ mode }}";          // "home" | "auth" | "dashboard"
+  var HOME = "/";
+
+  function stay() { history.pushState({ guard: 1 }, "", location.href); }
+
+  function leaveAttempt() {
+    if (MODE === "home") {
+      stay();                                        // dead end: nowhere to go
+    } else if (MODE === "auth") {
+      location.replace(HOME);                        // login/signup -> home
+    } else if (MODE === "dashboard") {
+      if (confirm("Going back or forward will log you out and take you to the home page.\n\nDo you want to log out?")) {
+        document.getElementById("logoutForm").submit();
+      } else {
+        stay();
+      }
+    }
+  }
+
+  // Page reached via the browser's Back/Forward button?
+  var nav = window.performance && performance.getEntriesByType
+            ? performance.getEntriesByType("navigation")[0] : null;
+  if (nav && nav.type === "back_forward") {
+    if (MODE === "auth") { location.replace(HOME); return; }
+    if (MODE === "dashboard") { setTimeout(leaveAttempt, 50); }
+  }
+
+  stay();                                            // extra entry above this page
+  window.addEventListener("popstate", leaveAttempt); // Back/Forward pressed
+
+  // Chrome ignores history entries added without user interaction, so add
+  // one more entry on the first click / key press / touch.
+  var armed = false;
+  function arm() { if (!armed) { armed = true; stay(); } }
+  ["pointerdown", "keydown", "touchstart"].forEach(function (t) {
+    window.addEventListener(t, arm, { once: true, passive: true });
+  });
+
+  // Page restored from the back/forward cache: force a fresh load.
+  window.addEventListener("pageshow", function (e) {
+    if (e.persisted) { location.reload(); }
+  });
+})();
+</script>

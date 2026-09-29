@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cultural Fest 2025 — Main Auditorium</title>
+  <style>
+    :root {
+      --bg1: #240046;
+      --bg2: #5a189a;
+      --accent: #ffb703;
+      --accent2: #f72585;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: #fdfdfd;
+      line-height: 1.6;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 40px;
+      position: relative;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: -120px;
+      left: -120px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--accent2) 0%, transparent 70%);
+      filter: blur(90px);
+      z-index: 0;
+    }
+    header h1 {
+      font-size: 48px;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    header p {
+      margin-top: 10px;
+      font-size: 20px;
+      position: relative;
+      z-index: 1;
+      color: #ffe6f7;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px 80px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+    }
+
+    section {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 26px;
+      color: var(--accent);
+    }
+
+    .highlights li {
+      margin-bottom: 12px;
+      padding-left: 20px;
+      position: relative;
+    }
+    .highlights li::before {
+      content: "★";
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+    }
+
+    .schedule-item {
+      margin-bottom: 18px;
+      padding: 12px;
+      border-left: 4px solid var(--accent2);
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+    }
+    .schedule-item strong {
+      display: block;
+      font-size: 16px;
+      color: var(--accent);
+    }
+    .schedule-item span {
+      display: block;
+      font-size: 14px;
+      color: #ffe6f7;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      font-size: 22px;
+      color: var(--accent2);
+    }
+    .info-box {
+      margin-bottom: 20px;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .info-box strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 14px;
+      background: rgba(0,0,0,0.2);
+      color: #ddd;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cultural Fest 2025</h1>
+    <p>Date: 20 Sept 2025 &nbsp; | &nbsp; Venue: Main Auditorium</p>
+  </header>
+
+  <div class="container">
+    <section>
+      <h2>About the Event</h2>
+      <p>
+        The annual <strong>Cultural Fest</strong> is one of the most awaited events of the college calendar. 
+        It brings together vibrant performances, artistic showcases, and a celebration of diversity. 
+        Students from all departments unite to express their creativity through music, dance, drama, fashion, and more.
+      </p>
+      <p>
+        This year, the theme of the fest is <em>"Unity in Diversity"</em>. 
+        Expect a colorful blend of traditional and modern acts, interactive competitions, 
+        and opportunities to experience different cultures in a single day.
+      </p>
+
+      <h2>Event Highlights</h2>
+      <ul class="highlights">
+        <li>Inaugural Dance Performance</li>
+        <li>Inter-college Singing Competition</li>
+        <li>Theatrical Skits and Mime Acts</li>
+        <li>Fashion Show: Fusion of Cultures</li>
+        <li>Art and Photography Exhibition</li>
+        <li>Closing Ceremony with Celebrity Performance</li>
+      </ul>
+
+      <h2>Schedule</h2>
+      <div class="schedule-item">
+        <strong>9:00 AM – 10:00 AM</strong>
+        <span>Opening Ceremony & Lamp Lighting</span>
+      </div>
+      <div class="schedule-item">
+        <strong>10:30 AM – 12:00 PM</strong>
+        <span>Dance & Music Competitions</span>
+      </div>
+      <div class="schedule-item">
+        <strong>12:30 PM – 1:30 PM</strong>
+        <span>Drama & Theatrical Performances</span>
+      </div>
+      <div class="schedule-item">
+        <strong>2:00 PM – 3:30 PM</strong>
+        <span>Fashion Show & Cultural Fusion Acts</span>
+      </div>
+      <div class="schedule-item">
+        <strong>4:00 PM – 6:00 PM</strong>
+        <span>Closing Ceremony & Guest Performance</span>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <div class="info-box">
+        <h3>Key Details</h3>
+        <strong>Date:</strong> 20 Sept 2025
+        <strong>Venue:</strong> Main Auditorium
+        <strong>Theme:</strong> Unity in Diversity
+      </div>
+
+      <div class="info-box">
+        <h3>Participation</h3>
+        <p>Students can participate in solo or group performances. Registration desks will be set up in the college foyer. Limited slots available for competitions!</p>
+      </div>
+
+      <div class="info-box">
+        <h3>Contact</h3>
+        <p>
+          Cultural Committee<br/>
+          Email: culturalfest@college.edu<br/>
+          Phone: +91-9876543210
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    &copy; 2025 College Cultural Committee. All rights reserved.
+  </footer>
+</body>
+</html>

@@ -1,0 +1,11 @@
+Django==5.2.6
+asgiref==3.9.1
+PyJWT==2.10.1
+sqlparse==0.5.3
+tzdata==2025.2
+
+gunicorn
+uvicorn
+whitenoise
+dj-database-url
+psycopg2-binary

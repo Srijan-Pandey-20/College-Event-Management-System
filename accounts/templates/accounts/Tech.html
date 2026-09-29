@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Symposium 2025 — Seminar Hall</title>
+  <style>
+    :root {
+      --bg1: #001d3d;
+      --bg2: #003566;
+      --accent: #ffc300;
+      --accent2: #ff5733;
+      --card-bg: rgba(255, 255, 255, 0.06);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: #fdfdfd;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 40px;
+      position: relative;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--accent2) 0%, transparent 70%);
+      filter: blur(90px);
+      z-index: 0;
+    }
+    header h1 {
+      font-size: 48px;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    header p {
+      margin-top: 10px;
+      font-size: 20px;
+      position: relative;
+      z-index: 1;
+      color: #fff3d6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px 80px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+    }
+
+    section {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 26px;
+      color: var(--accent);
+    }
+
+    .highlights li {
+      margin-bottom: 12px;
+      padding-left: 20px;
+      position: relative;
+    }
+    .highlights li::before {
+      content: "⚙";
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+    }
+
+    .schedule-item {
+      margin-bottom: 18px;
+      padding: 12px;
+      border-left: 4px solid var(--accent2);
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+    }
+    .schedule-item strong {
+      display: block;
+      font-size: 16px;
+      color: var(--accent);
+    }
+    .schedule-item span {
+      display: block;
+      font-size: 14px;
+      color: #fff3d6;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      font-size: 22px;
+      color: var(--accent2);
+    }
+    .info-box {
+      margin-bottom: 20px;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .info-box strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 14px;
+      background: rgba(0,0,0,0.2);
+      color: #ddd;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Tech Symposium 2025</h1>
+    <p>Date: 25 Sept 2025 &nbsp; | &nbsp; Venue: Seminar Hall</p>
+  </header>
+
+  <div class="container">
+    <section>
+      <h2>About the Event</h2>
+      <p>
+        The <strong>Tech Symposium 2025</strong> is a premier gathering for technology enthusiasts, innovators, 
+        and budding engineers. It offers a platform for showcasing cutting-edge research, 
+        presenting projects, and exploring the latest advancements in technology. 
+      </p>
+      <p>
+        With expert talks, hands-on workshops, and competitive events, the symposium encourages 
+        knowledge sharing and inspires participants to think beyond boundaries. 
+        This year’s theme is <em>“Innovating for a Smarter Future.”</em>
+      </p>
+
+      <h2>Event Highlights</h2>
+      <ul class="highlights">
+        <li>Keynote by Industry Experts</li>
+        <li>Paper Presentation Competition</li>
+        <li>Hackathon: 12-hour coding challenge</li>
+        <li>Robotics Demonstrations</li>
+        <li>Panel Discussion: Future of AI & ML</li>
+        <li>Project Exhibition by Students</li>
+      </ul>
+
+      <h2>Schedule</h2>
+      <div class="schedule-item">
+        <strong>9:00 AM – 9:45 AM</strong>
+        <span>Inauguration & Keynote Address</span>
+      </div>
+      <div class="schedule-item">
+        <strong>10:00 AM – 12:00 PM</strong>
+        <span>Paper Presentations</span>
+      </div>
+      <div class="schedule-item">
+        <strong>12:15 PM – 1:15 PM</strong>
+        <span>Panel Discussion: AI & ML Trends</span>
+      </div>
+      <div class="schedule-item">
+        <strong>2:00 PM – 6:00 PM</strong>
+        <span>Hackathon & Robotics Demo</span>
+      </div>
+      <div class="schedule-item">
+        <strong>6:15 PM – 7:00 PM</strong>
+        <span>Awards & Closing Ceremony</span>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <div class="info-box">
+        <h3>Key Details</h3>
+        <strong>Date:</strong> 25 Sept 2025
+        <strong>Venue:</strong> Seminar Hall
+        <strong>Theme:</strong> Innovating for a Smarter Future
+      </div>
+
+      <div class="info-box">
+        <h3>Participation</h3>
+        <p>Open to all students across engineering and technology disciplines. 
+        Registration required for paper presentations and hackathon. Certificates 
+        will be provided to all participants.</p>
+      </div>
+
+      <div class="info-box">
+        <h3>Contact</h3>
+        <p>
+          Symposium Committee<br/>
+          Email: techsymposium@college.edu<br/>
+          Phone: +91-9876543211
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    &copy; 2025 College Tech Symposium Committee. All rights reserved.
+  </footer>
+</body>
+</html>

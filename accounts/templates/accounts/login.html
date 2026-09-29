@@ -1,0 +1,74 @@
+{% extends "accounts/base.html" %}
+{% block title %}Sign In | SRMCEM Events{% endblock %}
+{% block body_class %}auth-page-body{% endblock %}
+{% block content %}
+<main class="auth-page">
+  <section class="auth-shell glass">
+    <aside class="auth-side">
+      <span class="kicker"><span class="kicker-dot"></span> Welcome back</span>
+      <h1><span class="gradient-text">Enter the fest.</span></h1>
+      <p>Sign in to continue to your SRMCEM event dashboard. Your account role determines whether you land in the student or administrator workspace.</p>
+      <div class="auth-art">
+        <div class="auth-word">SRMCEM • CONNECT • PARTICIPATE</div>
+      </div>
+    </aside>
+
+    <section class="auth-form-panel">
+      <a class="brand" href="/"><span class="brand-mark">✦</span><span>SRMCEM <span class="brand-sub">PORTAL</span></span></a>
+      <h2>Sign in</h2>
+      <p class="sub">Use your existing portal credentials.</p>
+
+      <form id="loginForm" autocomplete="off">
+        <div class="field">
+          <label for="username"><span>Username</span><span>Required</span></label>
+          <div class="input-wrap">
+            <input type="text" id="username" autocomplete="off" placeholder="Enter your username" readonly data-auto-focus required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="password"><span>Password</span><span>Required</span></label>
+          <div class="input-wrap">
+            <input type="password" id="password" autocomplete="new-password" placeholder="Enter your password" readonly data-auto-focus required>
+            <button class="toggle-password" type="button" data-password-toggle="password">Show</button>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit" style="width:100%;">Login to Dashboard</button>
+      </form>
+
+      <div class="auth-footer">
+        <span>New to SRMCEM?</span>
+        <a href="/accounts/signup/">Create your student account →</a>
+      </div>
+    </section>
+  </section>
+</main>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+  const data = {
+    username: document.getElementById("username").value,
+    password: document.getElementById("password").value,
+  };
+  try {
+    const response = await fetch("/accounts/loguser/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    if (result.status) {
+      window.location.replace(result.redirect_url);
+    } else {
+      alert("❌ " + (result.error || "Login failed"));
+    }
+  } catch (err) {
+    alert("⚠️ Something went wrong: " + err);
+  }
+});
+</script>
+{% include "accounts/_history_guard.html" with mode="auth" %}
+{% endblock %}

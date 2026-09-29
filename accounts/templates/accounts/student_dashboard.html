@@ -1,0 +1,97 @@
+{% extends "accounts/base.html" %}
+{% block title %}Student Dashboard | SRMCEM Events{% endblock %}
+{% block body_class %}dashboard-page{% endblock %}
+{% block nav %}
+<nav class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">✦</span><span>SRMCEM <span class="brand-sub">STUDENT</span></span></a>
+  <div class="nav-actions">
+    <span class="user-chip"><span class="avatar">S</span><span>{{ username }}</span></span>
+    <form id="logoutForm" method="post" action="/accounts/logout/" style="margin:0;">
+      {% csrf_token %}
+      <button type="submit" class="logout-btn">Logout</button>
+    </form>
+  </div>
+</nav>
+{% endblock %}
+{% block content %}
+<main class="page-wrap">
+  <header class="dashboard-head">
+    <div>
+      <span class="kicker"><span class="kicker-dot"></span> Student workspace</span>
+      <h1>Your <span class="gradient-text">event hub.</span></h1>
+      <p>Register for upcoming campus events and keep your participation status under control.</p>
+    </div>
+  </header>
+
+  {% if newly_registered_events %}
+  <div class="flash">
+    <strong>Registration confirmed.</strong>
+    A confirmation email was processed for: {{ newly_registered_events|join:", " }}
+  </div>
+  {% endif %}
+
+  <div class="stats">
+    <div class="stat glass"><div class="label">Available Events</div><div class="value">{{ events|length }}</div></div>
+    <div class="stat glass"><div class="label">My Registrations</div><div class="value">{{ my_registrations|length }}</div></div>
+    <div class="stat glass"><div class="label">Account</div><div class="value" style="font-size:1.2rem;">STUDENT</div></div>
+  </div>
+
+  <section class="panel glass">
+    <div class="section-title" style="margin-top:0;">
+      <div><h2>My registrations</h2><span>Manage individual event participation.</span></div>
+    </div>
+    {% if my_registrations %}
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Event</th><th>Registered On</th><th>Confirmation</th><th>Action</th></tr></thead>
+        <tbody>
+        {% for reg in my_registrations %}
+          <tr>
+            <td><strong>{{ reg.event_choice }}</strong></td>
+            <td>{{ reg.registered_at|date:"d M Y, h:i A" }}</td>
+            <td>
+              {% if reg.confirmation_email_sent %}<span class="status-ok">Sent ✔</span>{% else %}<span class="status-pending">Not sent</span>{% endif %}
+            </td>
+            <td>
+              <form method="POST" action="/accounts/student/unregister/{{ reg.id }}/" style="margin:0;">
+                {% csrf_token %}
+                <button class="btn btn-danger btn-small" type="submit" onclick="return confirm('Unregister yourself from \"{{ reg.event_choice|escapejs }}\"?');">Unregister</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <div class="empty-state">You are not registered for any event yet. Choose an event below to get started.</div>
+    {% endif %}
+  </section>
+
+  <section class="panel glass" style="margin-top:18px;">
+    <div class="section-title" style="margin-top:0;">
+      <div><h2>Event registration lounge</h2><span>Pick one or more events. Registered options stay locked until you unregister.</span></div>
+    </div>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="event-list">
+      {% for event in events %}
+        <label class="checkbox">
+          {% if event.name in registered_event_names %}
+            <input type="checkbox" checked disabled>
+          {% else %}
+            <input type="checkbox" name="event_ids" value="{{ event.id }}">
+          {% endif %}
+          <span class="check-copy"><strong>{{ event.name }}</strong><small>{{ event.date }} • {{ event.venue }}</small></span>
+          {% if event.name in registered_event_names %}<span class="badge-registered">Registered</span>{% else %}<span class="pill">Open</span>{% endif %}
+        </label>
+      {% empty %}
+        <div class="empty-state">No events have been added by the admin yet. Check back later.</div>
+      {% endfor %}
+      </div>
+      {% if events %}<div class="form-actions"><button class="btn btn-primary" type="submit">Register for Selected Events ✦</button></div>{% endif %}
+    </form>
+  </section>
+</main>
+{% include "accounts/_history_guard.html" with mode="dashboard" %}
+{% endblock %}

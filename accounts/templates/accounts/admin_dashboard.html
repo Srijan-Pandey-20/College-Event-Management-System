@@ -1,0 +1,261 @@
+{% extends "accounts/base.html" %}
+{% block title %}Admin Dashboard | SRMCEM Events{% endblock %}
+{% block body_class %}dashboard-page{% endblock %}
+{% block nav %}
+<nav class="site-nav">
+  <a class="brand" href="/"><span class="brand-mark">✦</span><span>SRMCEM <span class="brand-sub">ADMIN</span></span></a>
+  <div class="nav-actions">
+    <span class="user-chip"><span class="avatar">A</span><span>{{ username }}</span></span>
+    <form id="logoutForm" method="post" action="/accounts/logout/" style="margin:0;">
+      {% csrf_token %}
+      <button type="submit" class="logout-btn">Logout</button>
+    </form>
+  </div>
+</nav>
+{% endblock %}
+{% block content %}
+<main class="page-wrap">
+  <header class="dashboard-head">
+    <div>
+      <span class="kicker"><span class="kicker-dot"></span> Administrator workspace</span>
+      <h1>Run the <span class="gradient-text">fest.</span></h1>
+      <p>Create events, review registrations and decide whether to unregister or remove a student's account.</p>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat glass"><div class="label">Live Events</div><div class="value">{{ events|length }}</div></div>
+    <div class="stat glass"><div class="label">Active Registrations</div><div class="value">{{ students|length }}</div></div>
+    <div class="stat glass"><div class="label">Role</div><div class="value" style="font-size:1.2rem;">ADMIN</div></div>
+  </div>
+
+  <div class="dashboard-grid">
+    <section class="panel glass create-event-card">
+      <div class="create-event-top">
+        <div class="create-event-icon" aria-hidden="true">✦</div>
+        <div>
+          <span class="panel-eyebrow">EVENT BUILDER</span>
+          <h2>Create an event</h2>
+          <div class="panel-sub">Add a new fest event and publish its public information in one place.</div>
+        </div>
+      </div>
+
+      <div class="create-event-preview">
+        <div class="preview-label">What gets published</div>
+        <div class="preview-chips">
+          <span class="pill">Event name</span>
+          <span class="pill">Date &amp; venue</span>
+          <span class="pill">Highlights</span>
+          <span class="pill">Schedule</span>
+          <span class="pill">Participation</span>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary create-event-trigger" id="openCreateEvent">
+        <span>＋</span> Create New Event
+      </button>
+      <div class="form-help create-event-help">A detailed form will open only when you are ready to publish an event.</div>
+
+      <dialog class="event-modal" id="createEventDialog" aria-labelledby="createEventTitle">
+        <div class="event-modal-card">
+          <div class="event-modal-head">
+            <div>
+              <span class="panel-eyebrow">NEW EVENT</span>
+              <h2 id="createEventTitle">Create an event</h2>
+              <p>Fill in the details students will see on the event information page.</p>
+            </div>
+            <button type="button" class="modal-close" id="closeCreateEvent" aria-label="Close event form">×</button>
+          </div>
+
+          <form method="POST" id="createEventForm">
+            {% csrf_token %}
+            <div class="form-grid">
+              <div class="field">
+                <label for="event_name"><span>Event name</span><span>Required</span></label>
+                <input class="form-input" type="text" id="event_name" name="event_name" placeholder="e.g. Culture Fest 2025" required>
+              </div>
+              <div class="field">
+                <label for="event_date"><span>Date</span><span>Required</span></label>
+                <input class="form-input" type="date" id="event_date" name="event_date" required>
+              </div>
+              <div class="field full">
+                <label for="event_venue"><span>Venue</span><span>Required</span></label>
+                <input class="form-input" type="text" id="event_venue" name="event_venue" placeholder="e.g. Main Auditorium" required>
+              </div>
+              <div class="field full">
+                <label for="event_description"><span>About the event</span><span>Required</span></label>
+                <textarea class="form-input form-textarea" id="event_description" name="event_description" rows="4" placeholder="Describe the event, its purpose and what students can expect." required></textarea>
+              </div>
+              <div class="field full">
+                <label for="event_highlights"><span>Event highlights</span><span>One item per line · Required</span></label>
+                <textarea class="form-input form-textarea" id="event_highlights" name="event_highlights" rows="5" placeholder="Live performances
+Competitions
+Guest appearance
+Food stalls" required></textarea>
+              </div>
+              <div class="field full">
+                <label for="event_schedule"><span>Schedule</span><span>One item per line · Required</span></label>
+                <textarea class="form-input form-textarea" id="event_schedule" name="event_schedule" rows="5" placeholder="09:00 AM – Inauguration
+10:00 AM – Main activities
+04:00 PM – Prize distribution" required></textarea>
+              </div>
+              <div class="field full">
+                <label for="event_theme"><span>Theme</span><span>Required</span></label>
+                <input class="form-input" type="text" id="event_theme" name="event_theme" placeholder="e.g. Celebrating creativity and campus spirit" required>
+              </div>
+              <div class="field full">
+                <label for="event_participation"><span>Participation information</span><span>Required</span></label>
+                <textarea class="form-input form-textarea" id="event_participation" name="event_participation" rows="3" placeholder="Who can participate, registration requirements, certificates, etc." required></textarea>
+              </div>
+              <div class="field">
+                <label for="event_contact_name"><span>Contact person</span><span>Optional</span></label>
+                <input class="form-input" type="text" id="event_contact_name" name="event_contact_name" placeholder="e.g. Cultural Committee">
+              </div>
+              <div class="field">
+                <label for="event_contact_email"><span>Contact email</span><span>Optional</span></label>
+                <input class="form-input" type="email" id="event_contact_email" name="event_contact_email" placeholder="committee@college.edu">
+              </div>
+              <div class="field full">
+                <label for="event_contact_phone"><span>Contact phone</span><span>Optional</span></label>
+                <input class="form-input" type="text" id="event_contact_phone" name="event_contact_phone" placeholder="+91-9876543210">
+              </div>
+            </div>
+
+            <div class="form-help">These details are published automatically on the event's public information page linked from the homepage.</div>
+            <div class="form-actions modal-actions">
+              <button class="btn btn-secondary" type="button" id="cancelCreateEvent">Cancel</button>
+              <button class="btn btn-primary" type="submit">Publish Event ✦</button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+    </section>
+
+    <section class="panel glass">
+      <div class="section-title" style="margin-top:0;">
+        <div><h2>Event control room</h2><span>Deleting an event also deletes its registrations, not student accounts.</span></div>
+      </div>
+      {% if events %}
+        <div class="event-list">
+        {% for event in events %}
+          <div class="event-row">
+            <div class="event-main">
+              <div class="event-name">{{ event.name }}</div>
+              <div class="event-meta"><span class="pill">📅 {{ event.date }}</span><span class="pill">📍 {{ event.venue }}</span></div>
+            </div>
+            <div class="event-row-actions">
+              <a class="btn btn-secondary btn-small" href="/accounts/event/{{ event.id }}/" target="_blank" rel="noopener">View Page</a>
+              <form method="POST" action="/accounts/admin/event/delete/{{ event.id }}/" style="margin:0;">
+              {% csrf_token %}
+                <button class="btn btn-danger btn-small" type="submit" onclick="return confirm('Delete \"{{ event.name|escapejs }}\"? This will also remove all student registrations for this event. Student accounts will not be deleted.');">Delete Event</button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-state">No events created yet. Publish the first event from the panel beside this one.</div>
+      {% endif %}
+    </section>
+  </div>
+
+  <section class="panel glass" style="margin-top:18px;">
+    <div class="section-title" style="margin-top:0;">
+      <div><h2>Student registration ledger</h2><span>One row represents one event registration.</span></div>
+    </div>
+    {% if students %}
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Student</th><th>Email</th><th>Event</th><th>Account</th><th>Confirmation</th><th>Manage</th></tr></thead>
+        <tbody>
+        {% for student in students %}
+          <tr>
+            <td><strong>{{ student.name }}</strong></td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.event_choice }}</td>
+            <td>{{ student.user.username|default:"—" }}</td>
+            <td>{% if student.confirmation_email_sent %}<span class="status-ok">Sent ✔</span>{% else %}<span class="status-pending">Not sent</span>{% endif %}</td>
+            <td>
+              <form method="POST" action="/accounts/admin/registration/manage/{{ student.id }}/" class="row-actions" onsubmit="return confirmStudentRemoval(this);">
+                {% csrf_token %}
+                <select class="select action-select" name="action" required aria-label="Student removal action">
+                  <option value="" selected disabled>Choose action</option>
+                  <option value="unregister">Only unregister from this event</option>
+                  {% if student.user %}<option value="delete_account">Unregister + remove account</option>{% endif %}
+                </select>
+                <button class="btn btn-danger btn-small" type="submit">Apply</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+      <div class="empty-state">No student registrations yet. New registrations will appear here.</div>
+    {% endif %}
+  </section>
+</main>
+<script>
+function confirmStudentRemoval(form) {
+  const action = form.elements.action.value;
+  const row = form.closest('tr');
+  const studentName = row ? row.cells[0].textContent.trim() : 'this student';
+  const eventName = row ? row.cells[2].textContent.trim() : 'this event';
+
+  if (action === 'unregister') {
+    return confirm(`Unregister ${studentName} from "${eventName}"?\n\nThe student's account will remain active.`);
+  }
+  if (action === 'delete_account') {
+    return confirm(`Remove ${studentName}'s account?\n\nThis will unregister them from "${eventName}" AND delete their account from the database, including any other event registrations they have.`);
+  }
+  return false;
+}
+</script>
+<script>
+(function () {
+  const dialog = document.getElementById("createEventDialog");
+  const openButton = document.getElementById("openCreateEvent");
+  const closeButton = document.getElementById("closeCreateEvent");
+  const cancelButton = document.getElementById("cancelCreateEvent");
+  const form = document.getElementById("createEventForm");
+
+  if (!dialog || !openButton || !form) return;
+
+  const closeDialog = () => {
+    if (typeof dialog.close === "function") dialog.close();
+    document.body.classList.remove("modal-open");
+  };
+
+  openButton.addEventListener("click", () => {
+    if (typeof dialog.showModal === "function") {
+      dialog.showModal();
+      document.body.classList.add("modal-open");
+    } else {
+      dialog.setAttribute("open", "open");
+      document.body.classList.add("modal-open");
+    }
+    const firstField = document.getElementById("event_name");
+    if (firstField) window.setTimeout(() => firstField.focus(), 80);
+  });
+
+  closeButton?.addEventListener("click", closeDialog);
+  cancelButton?.addEventListener("click", closeDialog);
+
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) closeDialog();
+  });
+
+  dialog.addEventListener("cancel", () => {
+    document.body.classList.remove("modal-open");
+  });
+
+  form.addEventListener("submit", () => {
+    // Keep the existing POST flow exactly as before; just prevent the
+    // dashboard modal from lingering visually while navigation occurs.
+    document.body.classList.remove("modal-open");
+  });
+})();
+</script>
+{% include "accounts/_history_guard.html" with mode="dashboard" %}
+{% endblock %}

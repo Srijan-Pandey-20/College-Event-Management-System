@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sports Meet 2025 — Sports Ground</title>
+  <style>
+    :root {
+      --bg1: #0b3d02;
+      --bg2: #145a32;
+      --accent: #ffcc00;
+      --accent2: #ff5733;
+      --card-bg: rgba(255, 255, 255, 0.06);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: #fdfdfd;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 40px;
+      position: relative;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: -120px;
+      left: -120px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--accent2) 0%, transparent 70%);
+      filter: blur(90px);
+      z-index: 0;
+    }
+    header h1 {
+      font-size: 48px;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    header p {
+      margin-top: 10px;
+      font-size: 20px;
+      position: relative;
+      z-index: 1;
+      color: #fff9d6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px 80px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+    }
+
+    section {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 26px;
+      color: var(--accent);
+    }
+
+    .highlights li {
+      margin-bottom: 12px;
+      padding-left: 20px;
+      position: relative;
+    }
+    .highlights li::before {
+      content: "🏅";
+      position: absolute;
+      left: 0;
+      color: var(--accent2);
+    }
+
+    .schedule-item {
+      margin-bottom: 18px;
+      padding: 12px;
+      border-left: 4px solid var(--accent2);
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+    }
+    .schedule-item strong {
+      display: block;
+      font-size: 16px;
+      color: var(--accent);
+    }
+    .schedule-item span {
+      display: block;
+      font-size: 14px;
+      color: #fff9d6;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      font-size: 22px;
+      color: var(--accent2);
+    }
+    .info-box {
+      margin-bottom: 20px;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .info-box strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 14px;
+      background: rgba(0,0,0,0.2);
+      color: #ddd;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Annual Sports Meet 2025</h1>
+    <p>Date: 1 Oct 2025 &nbsp; | &nbsp; Venue: Sports Ground</p>
+  </header>
+
+  <div class="container">
+    <section>
+      <h2>About the Event</h2>
+      <p>
+        The <strong>Annual Sports Meet 2025</strong> is a celebration of athletic excellence, teamwork, and 
+        the spirit of sportsmanship. Students from all departments will compete in various track and field 
+        events, team games, and individual competitions, showcasing their skills and passion for sports. 
+      </p>
+      <p>
+        The event aims to promote fitness, discipline, and healthy competition among students, while 
+        also recognizing outstanding talent with awards and accolades.
+      </p>
+
+      <h2>Event Highlights</h2>
+      <ul class="highlights">
+        <li>100m, 200m & 400m Races</li>
+        <li>Relay Races (4x100m)</li>
+        <li>Long Jump & High Jump</li>
+        <li>Shot Put & Javelin Throw</li>
+        <li>Cricket & Football Finals</li>
+        <li>March Past & Torch Relay</li>
+      </ul>
+
+      <h2>Schedule</h2>
+      <div class="schedule-item">
+        <strong>8:00 AM – 8:45 AM</strong>
+        <span>Inauguration Ceremony & Torch Relay</span>
+      </div>
+      <div class="schedule-item">
+        <strong>9:00 AM – 12:00 PM</strong>
+        <span>Track Events: 100m, 200m, 400m races & Relay</span>
+      </div>
+      <div class="schedule-item">
+        <strong>12:15 PM – 2:00 PM</strong>
+        <span>Field Events: Long Jump, High Jump, Shot Put, Javelin</span>
+      </div>
+      <div class="schedule-item">
+        <strong>2:15 PM – 5:30 PM</strong>
+        <span>Team Games: Cricket & Football Finals</span>
+      </div>
+      <div class="schedule-item">
+        <strong>6:00 PM – 7:00 PM</strong>
+        <span>Closing Ceremony & Prize Distribution</span>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <div class="info-box">
+        <h3>Key Details</h3>
+        <strong>Date:</strong> 1 Oct 2025  
+        <strong>Venue:</strong> Sports Ground  
+        <strong>Theme:</strong> Fitness, Teamwork & Excellence  
+      </div>
+
+      <div class="info-box">
+        <h3>Participation</h3>
+        <p>All departments are invited to participate. Events are open to both boys and girls. 
+        Winners will receive medals, trophies, and certificates of achievement.</p>
+      </div>
+
+      <div class="info-box">
+        <h3>Contact</h3>
+        <p>
+          Sports Committee<br/>
+          Email: sportsmeet@college.edu<br/>
+          Phone: +91-9123456789
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    &copy; 2025 College Annual Sports Committee. All rights reserved.
+  </footer>
+</body>
+</html>
